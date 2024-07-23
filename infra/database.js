@@ -59,6 +59,6 @@ async function status() {
 }
 
 export default {
-  query: query,
-  status: status,
+  query,
+  status,
 };
