@@ -1,5 +1,3 @@
-const { PgLiteral } = require("node-pg-migrate");
-
 /**
  * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
  */
@@ -11,7 +9,7 @@ exports.shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 exports.up = async (pgm) => {
-  await pgm.createTable("user", {
+  await pgm.createTable("account", {
     id: {
       type: "uuid",
       default: pgm.func("gen_random_uuid()"),
@@ -45,5 +43,5 @@ exports.up = async (pgm) => {
  * @returns {Promise<void> | void}
  */
 exports.down = async (pgm) => {
-  await pgm.dropTable("user");
+  await pgm.dropTable("account");
 };
