@@ -1,16 +1,18 @@
-<h1 style="text-align: center">
+<h1 align="center">
   <a href="https://www.cosmusart.com.br/">Cosmus Art</a>
+  <br/>
+  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-00CF00.svg">
 </h1>
 
 O [Cosmus Art](https://www.cosmusart.com.br/) é um site que foca em compartilhar e divulgar as diversas artes de diversos artistas no Brasil. Independentemente das suas habilidades, você está convidado a visitar e a compartilhar suas mais belas obras de artes!
 
 **Índice**
 
-- (Instalar e rodar o projeto)[#como-instalar-e-rodar-o-projeto]
-  - (Dependências globais)[#dependencia-global]
-  - (Dependências locais)[#dependencia-locais]
-  - (Rodar o projeto)[#rodar-o-projeto]
-- (Rodar testes)[#rodar-testes]
+- [Instalar e rodar o projeto](#como-instalar-e-rodar-o-projeto)
+  - [Dependências globais](#dependencia-global)
+  - [Dependências locais](#dependencia-locais)
+  - [Rodar o projeto](#rodar-o-projeto)
+- [Rodar testes](#rodar-testes)
 
 ## Como instalar e rodar o projeto
 
