@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "next": "next dev",
-    "dev": "npm run services:up && next dev",
+    "dev": "npm run services:up && npm run wait-postgres && npm run migration:up && next dev",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down",
@@ -15,7 +15,9 @@
     "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
     "migration:down": "node-pg-migrate -m infra/migrations --envPath .env.development down",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "wait-postgres": "node infra/scripts/wait_postgres.js",
+    "psql": "psql -h localhost -p 5432 -U local_user -W -d local_db"
   },
   "author": "",
   "license": "MIT",
