@@ -31,12 +31,11 @@ async function emailExists(email) {
 }
 
 async function getByName(name) {
-  const responseQuery = await database.query({
-    text: "SELECT * FROM account WHERE name = $1;",
-    values: [name],
-  });
+  const responseQuery = await database.query(
+    `SELECT * FROM account WHERE name = '${name}';`,
+  );
 
-  return responseQuery.rows[0] || {};
+  return responseQuery.rows || {};
 }
 
 async function getByEmail(email) {

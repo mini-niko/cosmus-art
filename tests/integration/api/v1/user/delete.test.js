@@ -1,4 +1,4 @@
-test("POST to /api/v1/user should return 201", async () => {
+test("DELETE to /api/v1/user should return 204", async () => {
   const requestHeaders = new Headers().append(
     "Content-Type",
     "application/json",
@@ -14,14 +14,9 @@ test("POST to /api/v1/user should return 201", async () => {
 
   const response = await fetch("http://localhost:3000/api/v1/user", {
     headers: requestHeaders,
-    method: "POST",
+    method: "DELETE",
     body: requestBody,
   });
 
-  const responseBody = await response.json();
-
-  expect(response.status).toBe(201);
-  expect(responseBody.name).not.toBeUndefined();
-  expect(responseBody.email).not.toBeUndefined();
-  expect(responseBody.password).not.toBeUndefined();
+  expect(response.status).toBe(204);
 });
