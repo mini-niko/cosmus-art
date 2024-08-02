@@ -1,3 +1,19 @@
+import user from "models/user";
+
+const modelUser = {
+  name: "test_cosmus",
+  email: "email@example.com",
+  password: "@cosmusart",
+};
+
+beforeAll(() => {
+  user.create(modelUser);
+});
+
+afterAll(() => {
+  user.drop(modelUser);
+});
+
 test("GET to /api/v1/user/get-all should return 200", async () => {
   const response = await fetch("http://localhost:3000/api/v1/user/get-all");
   const body = await response.json();

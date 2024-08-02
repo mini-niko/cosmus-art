@@ -1,3 +1,19 @@
+import user from "models/user";
+
+const modelUser = {
+  name: "test_cosmus",
+  email: "email@example.com",
+  password: "@cosmusart",
+};
+
+beforeAll(() => {
+  user.drop(modelUser);
+});
+
+afterAll(() => {
+  user.drop(modelUser);
+});
+
 test("POST to /api/v1/user should return 201", async () => {
   const requestHeaders = new Headers().append(
     "Content-Type",

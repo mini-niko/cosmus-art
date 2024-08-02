@@ -1,3 +1,15 @@
+import user from "models/user";
+
+const modelUser = {
+  name: "test_cosmus",
+  email: "email@example.com",
+  password: "@cosmusart",
+};
+
+beforeAll(() => {
+  user.drop(modelUser);
+});
+
 test("DELETE to /api/v1/user should return 204", async () => {
   const requestHeaders = new Headers().append(
     "Content-Type",
