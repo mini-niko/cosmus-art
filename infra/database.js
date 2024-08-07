@@ -1,7 +1,7 @@
 import { Client } from "pg";
 import { performance } from "perf_hooks";
 
-async function getNewClient() {
+async function query(query) {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -10,17 +10,9 @@ async function getNewClient() {
     password: process.env.POSTGRES_PASSWORD,
     ssl: process.env.NODE_ENV == "production" ? true : false,
   });
-    
-  await client.connect();
-
-  return client;
-}
-
-async function query(query) {
-  let client;
 
   try {
-    client = await getNewClient();
+    await client.connect();
     const res = await client.query(query);
     return res;
   } catch (err) {
@@ -67,7 +59,6 @@ async function status() {
 }
 
 export default {
-  getNewClient,
   query,
   status,
 };

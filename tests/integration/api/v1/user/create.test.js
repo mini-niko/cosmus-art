@@ -6,12 +6,12 @@ const modelUser = {
   password: "@cosmusart",
 };
 
-beforeAll(async () => {
-  await user.drop(modelUser);
+beforeAll(() => {
+  user.drop(modelUser);
 });
 
-afterAll(async () => {
-  await user.drop(modelUser);
+afterAll(() => {
+  user.drop(modelUser);
 });
 
 test("POST to /api/v1/user should return 201", async () => {

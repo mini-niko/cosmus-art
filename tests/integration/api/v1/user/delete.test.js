@@ -6,12 +6,8 @@ const modelUser = {
   password: "@cosmusart",
 };
 
-beforeAll(async () => {
-  await user.drop(modelUser);
-});
-
-afterAll(async () => {
-  await user.drop(modelUser);
+beforeAll(() => {
+  user.drop(modelUser);
 });
 
 test("DELETE to /api/v1/user should return 204", async () => {
