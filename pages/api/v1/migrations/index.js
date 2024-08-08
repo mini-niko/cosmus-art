@@ -4,14 +4,43 @@ async function index(req, res) {
   const methods = {
     async GET() {
       const pendingMigrations = await migrations.getLast();
-      return res.status(200).json(pendingMigrations);
+
+      if (!pendingMigrations || pendingMigrations.length === 0)
+        return res.status(200).json(pendingMigrations);
+
+      let jsonResponse = [];
+
+      for (let i in pendingMigrations) {
+        let migration = pendingMigrations[i];
+        let dateToISO = new Date(migration.timestamp).toISOString();
+
+        jsonResponse.push({
+          ...migration,
+          timestamp: dateToISO,
+        });
+      }
+
+      return res.status(200).json(jsonResponse);
     },
     async POST() {
       const pendingMigrations = await migrations.up();
 
-      return pendingMigrations.length > 0
-        ? res.status(201).json(pendingMigrations)
-        : res.status(200).json(pendingMigrations);
+      if (pendingMigrations.length === 0)
+        return res.status(200).json(pendingMigrations);
+
+      let jsonResponse = [];
+
+      for (let i in pendingMigrations) {
+        let migration = pendingMigrations[i];
+        let dateToISO = new Date(migration.timestamp).toISOString();
+
+        jsonResponse.push({
+          ...migration,
+          timestamp: dateToISO,
+        });
+      }
+
+      return res.status(201).json(jsonResponse);
     },
   };
 
