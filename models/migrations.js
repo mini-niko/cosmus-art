@@ -26,9 +26,7 @@ async function getLast() {
 
     const options = getMigrationOptions(dbClient, true);
 
-    const pendingMigrations = await migrationRunner(options);
-
-    return pendingMigrations;
+    return await migrationRunner(options);
   } catch (err) {
     console.log(err);
   } finally {
@@ -42,8 +40,8 @@ function getMigrationOptions(dbClient, isTest) {
     dryRun: isTest,
     dir: join(process.cwd(), "infra", "migrations"),
     direction: "up",
-    verbose: true,
     migrationsTable: "pgmigrations",
+    log: () => {},
   };
 }
 
