@@ -58,8 +58,8 @@ async function create(user) {
 
 async function drop(user) {
   const result = await database.query({
-    text: "WITH deleted AS (DELETE FROM account RETURNING *) SELECT COUNT(*) FROM deleted;",
-    query: [user.name, user.email, user.password],
+    text: "WITH deleted AS (DELETE FROM account WHERE name = $1 AND email = $2 AND password = $3 RETURNING *) SELECT COUNT(*) FROM deleted;",
+    values: [user.name, user.email, user.password],
   });
 }
 
