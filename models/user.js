@@ -57,13 +57,15 @@ async function create(user) {
 }
 
 async function drop(user) {
-  const result = await database.query({
+  const responseQuery = await database.query({
     text: "WITH deleted AS (DELETE FROM account WHERE name = $1 AND email = $2 AND password = $3 RETURNING *) SELECT COUNT(*) FROM deleted;",
     values: [user.name, user.email, user.password],
   });
+
+  return responseQuery.rows;
 }
 
-export default {
+const userModel = {
   getAll,
   getByName,
   getByEmail,
@@ -72,3 +74,5 @@ export default {
   create,
   drop,
 };
+
+export default userModel;

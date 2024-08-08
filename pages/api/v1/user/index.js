@@ -37,7 +37,7 @@ async function index(req, res) {
 
   return execute
     ? await execute()
-    : res.status(405).json({ error: `Method "${request.method}" not allowed` });
+    : res.status(405).json({ error: `Method "${req.method}" not allowed` });
 }
 
 export default index;

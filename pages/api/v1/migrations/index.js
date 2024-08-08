@@ -5,22 +5,20 @@ async function index(req, res) {
     async GET() {
       const pendingMigrations = await migrations.getLast();
 
-      if (!pendingMigrations || pendingMigrations.length === 0)
-        return res.status(200).json(pendingMigrations);
-
       let jsonResponse = [];
 
-      for (let i in pendingMigrations) {
-        let migration = pendingMigrations[i];
-        let dateToISO = new Date(migration.timestamp).toISOString();
+      pendingMigrations.forEach((pendingMigration) => {
+        const dateInISO = new Date(pendingMigration.timestamp).toISOString();
 
-        jsonResponse.push({
-          ...migration,
-          timestamp: dateToISO,
-        });
-      }
+        let jsonFormer = {
+          ...pendingMigration,
+          timestamp: dateInISO,
+        };
 
-      return res.status(200).json(jsonResponse);
+        jsonResponse.push(jsonFormer);
+      });
+
+      res.status(200).json(jsonResponse);
     },
     async POST() {
       const pendingMigrations = await migrations.up();
@@ -30,17 +28,18 @@ async function index(req, res) {
 
       let jsonResponse = [];
 
-      for (let i in pendingMigrations) {
-        let migration = pendingMigrations[i];
-        let dateToISO = new Date(migration.timestamp).toISOString();
+      pendingMigrations.forEach((pendingMigration) => {
+        const dateInISO = new Date(pendingMigration.timestamp).toISOString();
 
-        jsonResponse.push({
-          ...migration,
-          timestamp: dateToISO,
-        });
-      }
+        let jsonFormer = {
+          ...pendingMigration,
+          timestamp: dateInISO,
+        };
 
-      return res.status(201).json(jsonResponse);
+        jsonResponse.push(jsonFormer);
+      });
+
+      res.status(201).json(jsonResponse);
     },
   };
 
@@ -49,7 +48,7 @@ async function index(req, res) {
   execute
     ? await execute()
     : res.status(405).json({
-        error: `Method "${request.method}" not allowed`,
+        error: `Method "${req.method}" not allowed`,
       });
 }
 

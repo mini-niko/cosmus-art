@@ -10,7 +10,7 @@ async function getNewClient() {
     password: process.env.POSTGRES_PASSWORD,
     ssl: process.env.NODE_ENV == "production" ? true : false,
   });
-    
+
   await client.connect();
 
   return client;
@@ -66,8 +66,10 @@ async function status() {
   };
 }
 
-export default {
+const databaseModule = {
   getNewClient,
   query,
   status,
 };
+
+export default databaseModule;

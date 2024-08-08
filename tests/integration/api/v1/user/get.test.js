@@ -1,4 +1,3 @@
-import migrations from "models/migrations";
 import user from "models/user";
 
 const modelUser = {

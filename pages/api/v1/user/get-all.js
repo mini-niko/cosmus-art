@@ -1,4 +1,3 @@
-import { query } from "infra/database";
 import user from "models/user";
 
 async function getAll(req, res) {

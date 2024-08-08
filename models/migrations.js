@@ -12,7 +12,7 @@ async function up() {
 
     return await migrationRunner(options);
   } catch (err) {
-    throw err;
+    console.log(err);
   } finally {
     await dbClient.end();
   }
@@ -45,7 +45,10 @@ function getMigrationOptions(dbClient, isTest) {
   };
 }
 
-export default {
+const migrationModel = {
   up,
   getLast,
+  getMigrationOptions,
 };
+
+export default migrationModel;

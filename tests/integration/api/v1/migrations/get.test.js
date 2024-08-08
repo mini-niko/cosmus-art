@@ -17,7 +17,7 @@ test("GET to api/v1/migrations should return 200", async () => {
   expect(response.status).toBe(200);
   expect(Array.isArray(body)).toBe(true);
   expect(body.length).toBeGreaterThan(0);
-  expect(typeof migration.path).toBe("string")
-  expect(typeof migration.name).toBe("string")
-  expect(typeof migration.timestamp).toBe("string")
+  expect(typeof migration.path).toBe("string");
+  expect(typeof migration.name).toBe("string");
+  expect(typeof migration.timestamp).toBe("string");
 });
