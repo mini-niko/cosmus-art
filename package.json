@@ -18,7 +18,8 @@
     "test": "jest --runInBand",
     "test:watch": "jest --watchAll --runInBand",
     "wait-postgres": "node infra/scripts/wait_postgres.js",
-    "psql": "psql -h localhost -p 5432 -U local_user -W -d local_db"
+    "psql": "psql -h localhost -p 5432 -U local_user -W -d local_db",
+    "prepare": "husky"
   },
   "author": "",
   "license": "MIT",
@@ -26,6 +27,7 @@
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "eslint-plugin-jest": "^28.8.0",
+    "husky": "^9.1.4",
     "next": "^13.1.6",
     "node-pg-migrate": "^7.5.2",
     "perf_hooks": "^0.0.1",
@@ -34,7 +36,10 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "autoprefixer": "^10.4.19",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "^9.1.0",
@@ -42,5 +47,10 @@
     "postcss": "^8.4.40",
     "prettier": "^3.3.2",
     "tailwindcss": "^3.4.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
