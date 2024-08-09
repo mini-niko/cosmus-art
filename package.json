@@ -24,10 +24,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "eslint-plugin-jest": "^28.8.0",
     "husky": "^9.1.4",
+    "jsonwebtoken": "^9.0.2",
     "next": "^13.1.6",
     "node-pg-migrate": "^7.5.2",
     "perf_hooks": "^0.0.1",
