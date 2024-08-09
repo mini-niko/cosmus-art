@@ -1,9 +1,7 @@
 import database from "infra/database.js";
 
 async function getAll() {
-  const responseQuery = await database.query(
-    "SELECT id, name, timestamp FROM account;",
-  );
+  const responseQuery = await database.query("SELECT * FROM account;");
 
   return responseQuery.rows;
 }
