@@ -10,7 +10,7 @@ afterAll(async () => {
 });
 
 test("GET to api/v1/migrations should return 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations");
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/migrations`);
   const body = await response.json();
   const migration = body[0];
 

@@ -5,7 +5,7 @@ beforeAll(async () => {
 });
 
 test("POST to /api/v1/migrations should return 201", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/migrations`, {
     method: "POST",
   });
 
@@ -21,7 +21,7 @@ test("POST to /api/v1/migrations should return 201", async () => {
 });
 
 test("POST to /api/v1/migrations again should return 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/migrations`, {
     method: "POST",
   });
 

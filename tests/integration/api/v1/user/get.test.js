@@ -15,9 +15,8 @@ afterAll(async () => {
 });
 
 test("GET to /api/v1/user/get-all should return 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/user/get-all");
-  const body = await response.json();
-  const users = body.users;
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/user/get-all`);
+  const users = await response.json();
 
   expect(users).not.toBeUndefined();
   expect(users).not.toBeNull();
@@ -25,7 +24,7 @@ test("GET to /api/v1/user/get-all should return 200", async () => {
 });
 
 test("GET to /api/v1/user with valid name parameter should return 200", async () => {
-  const requestUrl = new URL("http://localhost:3000/api/v1/user/");
+  const requestUrl = new URL(`${process.env.COSMUS_URL}/api/v1/user/`);
   requestUrl.searchParams.set("name", "test_cosmus");
 
   const requestHeaders = new Headers().append(
@@ -59,7 +58,7 @@ test("GET to /api/v1/user with valid name parameter should return 200", async ()
 });
 
 test("GET to /api/v1/user with invalid name parameter should return 404", async () => {
-  const requestUrl = new URL("http://localhost:3000/api/v1/user/");
+  const requestUrl = new URL(`${process.env.COSMUS_URL}/api/v1/user/`);
   requestUrl.searchParams.set("name", "invalid_name_cosmus");
 
   const requestHeaders = new Headers().append(

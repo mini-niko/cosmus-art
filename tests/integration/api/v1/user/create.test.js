@@ -22,7 +22,7 @@ test("POST to /api/v1/user should return 201", async () => {
 
   const requestBody = JSON.stringify(modelUser);
 
-  const response = await fetch("http://localhost:3000/api/v1/user", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/user`, {
     headers: requestHeaders,
     method: "POST",
     body: requestBody,
@@ -49,7 +49,7 @@ test("POST to /api/v1/user with existing name should return 409", async () => {
 
   const requestBody = JSON.stringify(requestUser);
 
-  const response = await fetch("http://localhost:3000/api/v1/user", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/user`, {
     headers: requestHeaders,
     method: "POST",
     body: requestBody,
@@ -77,7 +77,7 @@ test("POST to /api/v1/user with existing email should return 409", async () => {
 
   const requestBody = JSON.stringify(requestUser);
 
-  const response = await fetch("http://localhost:3000/api/v1/user", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/user`, {
     headers: requestHeaders,
     method: "POST",
     body: requestBody,
