@@ -45,6 +45,15 @@ async function getByEmail(email) {
   return responseQuery.rows[0] || {};
 }
 
+async function getByLogin(login) {
+  const responseQuery = await database.query({
+    text: "SELECT * FROM account WHERE name = $1 OR email = $1;",
+    values: [login],
+  });
+
+  return responseQuery.rows[0] || {};
+}
+
 async function create(user) {
   const responseQuery = await database.query({
     text: "INSERT INTO account(name, email, password) VALUES($1, $2, $3) RETURNING *;",
@@ -67,6 +76,7 @@ const userModel = {
   getAll,
   getByName,
   getByEmail,
+  getByLogin,
   nameExists,
   emailExists,
   create,

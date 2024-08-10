@@ -8,7 +8,9 @@ async function encrypt(string) {
 }
 
 async function compare(string, stringHash) {
-  return await bcrypt.compare(string, stringHash);
+  const match = await bcrypt.compare(string, stringHash);
+
+  return match;
 }
 
 const encryptModule = {
