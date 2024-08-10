@@ -1,8 +1,8 @@
 import user from "models/user";
 
 const modelUser = {
-  name: "test_cosmus",
-  email: "email@example.com",
+  name: "test_delete",
+  email: "delete@example.com",
   password: "@cosmusart",
 };
 

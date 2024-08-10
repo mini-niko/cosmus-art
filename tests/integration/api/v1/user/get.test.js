@@ -1,8 +1,8 @@
 import user from "models/user";
 
 const modelUser = {
-  name: "test_cosmus",
-  email: "email@example.com",
+  name: "test_get",
+  email: "get@example.com",
   password: "@cosmusart",
 };
 
@@ -25,7 +25,7 @@ test("GET to /api/v1/user/get-all should return 200", async () => {
 
 test("GET to /api/v1/user with valid name parameter should return 200", async () => {
   const requestUrl = new URL(`${process.env.COSMUS_URL}/api/v1/user/`);
-  requestUrl.searchParams.set("name", "test_cosmus");
+  requestUrl.searchParams.set("name", modelUser.name);
 
   const requestHeaders = new Headers().append(
     "Content-Type",
@@ -46,11 +46,11 @@ test("GET to /api/v1/user with valid name parameter should return 200", async ()
     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/,
   );
   expect(typeof user.name).toBe("string");
-  expect(user.name).toBe("test_cosmus");
+  expect(user.name).toBe(modelUser.name);
   expect(typeof user.email).toBe("string");
-  expect(user.email).toBe("email@example.com");
+  expect(user.email).toBe(modelUser.email);
   expect(typeof user.password).toBe("string");
-  expect(user.password).toBe("@cosmusart");
+  expect(user.password).toBe(modelUser.password);
   expect(typeof user.timestamp).toBe("string");
   expect(user.timestamp).toMatch(
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/,

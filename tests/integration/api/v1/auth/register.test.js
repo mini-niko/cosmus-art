@@ -1,8 +1,8 @@
 import user from "models/user";
 
 const userModel = {
-  name: "test_cosmus",
-  email: "email@example.com",
+  name: "test_register",
+  email: "register@example.com",
   password: "cosmus@123",
   confirmPassword: "cosmus@123",
 };
