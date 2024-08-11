@@ -4,15 +4,12 @@ const userModel = {
   name: "test_register",
   email: "register@example.com",
   password: "cosmus@123",
-  confirmPassword: "cosmus@123",
+  confirm_password: "cosmus@123",
 };
 
-beforeAll(async () => {
-  await user.drop(userModel);
-});
-
 afterAll(async () => {
-  await user.drop(userModel);
+  const newUser = await user.getByName(userModel.name);
+  if (newUser.id) await user.drop(newUser.id);
 });
 
 test("POST to /api/v1/auth/register should return 201", async () => {

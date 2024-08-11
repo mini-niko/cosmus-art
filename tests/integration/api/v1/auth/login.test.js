@@ -1,4 +1,3 @@
-import encrypt from "infra/encrypt";
 import user from "models/user";
 
 const userModel = {
@@ -8,7 +7,8 @@ const userModel = {
 };
 
 beforeAll(async () => {
-  const passwordHash = await encrypt.encrypt(userModel.password);
+  const passwordHash =
+    "$2b$15$WLYGZN0tWhD6OgzKai65EO0ylijknz3hL80OjrthZtcxkX3RffCwi";
 
   await user.create({
     ...userModel,
@@ -75,5 +75,16 @@ test("POST to /auth/login with invalid password should return 404", async () => 
   const setCookies = response.headers.getSetCookie();
 
   expect(response.status).toBe(404);
+  expect(setCookies.length).toBe(0);
+});
+
+test("Invalid method to /auth/login with invalid password should return 405", async () => {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/auth/login`, {
+    method: "GET",
+  });
+
+  const setCookies = response.headers.getSetCookie();
+
+  expect(response.status).toBe(405);
   expect(setCookies.length).toBe(0);
 });
