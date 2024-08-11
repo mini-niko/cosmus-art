@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function login() {
   return (
-    <div className="bg-slate-200 h-screen flex flex-col items-center justify-center">
+    <div className="h-screen flex flex-col items-center justify-center">
       <form className="bg-slate-100 rounded-md border-2 border-black p-8 flex flex-col gap-4 items-center">
         <h1 className="text-3xl font-bold">Login</h1>
         <InputText name="login" label="Nome ou Email" />
