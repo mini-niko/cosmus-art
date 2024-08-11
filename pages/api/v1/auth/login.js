@@ -4,6 +4,10 @@ import token from "infra/token";
 import user from "models/user";
 
 async function login(req, res) {
+  if (req.method != "POST")
+    return res.status(405).json({ error: `Method ${req.method} not allowed.` });
+  if (!req.body) return res.status(400).json({ error: "Invalid body" });
+
   const userLogin = JSON.parse(req.body);
 
   const userFound = await user.getByLogin(userLogin.login);
@@ -18,7 +22,12 @@ async function login(req, res) {
   if (!matchPasswords)
     return res.status(404).json({ error: "Password doesn't match" });
 
-  const tokenLogin = await token.encode(userFound.id);
+  const toSerialize = {
+    id: userFound.id,
+    name: userFound.name,
+  };
+
+  const tokenLogin = await token.encode(toSerialize);
 
   const cookie = serialize("loginToken", tokenLogin, {
     httpOnly: true,

@@ -2,6 +2,10 @@ import userModel from "models/user";
 import bcrypt from "infra/encrypt";
 
 async function register(req, res) {
+  if (req.method != "POST")
+    return res.status(405).json({ error: `Method ${req.method} not allowed.` });
+  if (!req.body) return res.status(400).json({ error: "Invalid body" });
+
   const user = JSON.parse(req.body);
 
   const validUser = await validateUser(user);
@@ -23,7 +27,7 @@ async function register(req, res) {
 }
 
 // Otimizar este código mais tarde
-async function validateUser({ name, email, password, confirmPassword }) {
+async function validateUser({ name, email, password, confirm_password }) {
   const response = {
     code: false,
     message: "",
@@ -52,7 +56,7 @@ async function validateUser({ name, email, password, confirmPassword }) {
     return response;
   }
 
-  if (confirmPassword != password) {
+  if (confirm_password != password) {
     response.code = 422;
     response.message = "Your confirm password doesn't match with password.";
 
