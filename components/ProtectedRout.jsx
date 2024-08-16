@@ -28,7 +28,7 @@ function ProtectedRout({ children }) {
     } else {
       setRenderObject(children);
     }
-  }, [loginToken, router, children]);
+  }, [loginToken, removeLoginToken, router, children]);
 
   return renderObject;
 }

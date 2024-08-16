@@ -3,7 +3,7 @@ import ProtectedRout from "components/ProtectedRout";
 function home() {
   return (
     <ProtectedRout>
-      {({ name, id }) => {
+      {({ name }) => {
         return (
           <div className="bg-slate-200 h-screen flex flex-col">
             <nav className="bg-slate-100 border border-b-black px-16 py-8 flex flex-row items-center justify-between">

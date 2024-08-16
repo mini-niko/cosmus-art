@@ -25,7 +25,7 @@ function UnprotectedRout({ children }) {
     }
 
     setRenderObject(children);
-  }, [loginToken, router, children]);
+  }, [loginToken, removeLoginToken, router, children]);
 
   return renderObject;
 }
