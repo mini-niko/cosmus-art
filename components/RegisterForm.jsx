@@ -4,12 +4,13 @@ import InputText from "components/InputText";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import SubmitButton from "./SubmitButton";
 
 function RegisterForm() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [inputDisable, setInputDisable] = useState(false);
   const [confirmRegistry, setConfirmRegistry] = useState(false);
@@ -72,12 +73,7 @@ function RegisterForm() {
         label="Confirme a Senha"
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <input
-        disabled={inputDisable}
-        className="bg-slate-200 disabled:bg-gray-300 disabled:text-gray-700 disabled:border-gray-700 text-lg font-semibold enabled:cursor-pointer rounded-sm border border-black py-2 px-4 enabled:hover:bg-slate-300"
-        type="submit"
-        value="Enviar"
-      />
+      <SubmitButton inputDisable={inputDisable} />
       <span>
         {!confirmRegistry ? (
           <>
