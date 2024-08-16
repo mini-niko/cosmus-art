@@ -1,18 +1,28 @@
 import jwt from "jsonwebtoken";
 
-async function encode(string) {
+function encode(string) {
   const token = jwt.sign(string, process.env.JWT_SECRET);
 
   return token;
 }
 
-async function decode(token) {
-  const string = jwt.decode(token, process.env.JWT_SECRET);
+function decode(token) {
+  try {
+    if (!token) {
+      throw Error;
+    }
 
-  return string;
+    const obj = jwt.decode(`${token}`);
+
+    return obj;
+  } catch (err) {
+    return undefined;
+  }
 }
 
-export default {
+const token = {
   encode,
   decode,
 };
+
+export default token;

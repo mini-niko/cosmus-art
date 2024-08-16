@@ -13,9 +13,9 @@ async function compare(string, stringHash) {
   return match;
 }
 
-const encryptModule = {
+const encryption = {
   encrypt,
   compare,
 };
 
-export default encryptModule;
+export default encryption;

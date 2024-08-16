@@ -66,10 +66,10 @@ async function status() {
   };
 }
 
-const databaseModule = {
+const database = {
   getNewClient,
   query,
   status,
 };
 
-export default databaseModule;
+export default database;
