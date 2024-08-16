@@ -73,7 +73,7 @@ function RegisterForm() {
         label="Confirme a Senha"
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <SubmitButton inputDisable={inputDisable} />
+      <SubmitButton disabled={inputDisable} />
       <span>
         {!confirmRegistry ? (
           <>
