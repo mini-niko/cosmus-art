@@ -33,11 +33,11 @@ test("POST to /auth/login with name and password should return 202", async () =>
     body: requestBody,
   });
 
-  const setCookies = response.headers.getSetCookie();
+  const responseBody = await response.json();
 
   expect(response.status).toBe(202);
-  expect(setCookies.length).toBe(1);
-  expect(setCookies[0].startsWith("loginToken")).toBe(true);
+  expect(typeof responseBody.token).toBe("string");
+  expect(responseBody.token.split(".").length).toBe(3);
 });
 
 test("POST to /auth/login with invalid name should return 404", async () => {
@@ -53,10 +53,7 @@ test("POST to /auth/login with invalid name should return 404", async () => {
     body: requestBody,
   });
 
-  const setCookies = response.headers.getSetCookie();
-
   expect(response.status).toBe(404);
-  expect(setCookies.length).toBe(0);
 });
 
 test("POST to /auth/login with invalid password should return 404", async () => {
@@ -72,10 +69,10 @@ test("POST to /auth/login with invalid password should return 404", async () => 
     body: requestBody,
   });
 
-  const setCookies = response.headers.getSetCookie();
+  const responseBody = await response.json();
 
   expect(response.status).toBe(404);
-  expect(setCookies.length).toBe(0);
+  expect(responseBody.token).toBeUndefined();
 });
 
 test("Invalid method to /auth/login with invalid password should return 405", async () => {
@@ -83,8 +80,9 @@ test("Invalid method to /auth/login with invalid password should return 405", as
     method: "GET",
   });
 
-  const setCookies = response.headers.getSetCookie();
+  const responseBody = await response.json();
 
   expect(response.status).toBe(405);
-  expect(setCookies.length).toBe(0);
+  expect(responseBody.token).toBeUndefined();
+  expect(responseBody.error).toBe("Method GET not allowed.");
 });
