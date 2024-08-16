@@ -1,30 +1,36 @@
 "use client";
 
-import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import token from "infra/token";
 
-import load from "public/loading/loading.svg";
-import Image from "next/image";
+import Loading from "./Loading";
+import { useCookies } from "react-cookie";
 
+// Este componente irá ser utilizado quando a rota em que ele foi chamado for privada (necessita de token)
 function ProtectedRout({ children }) {
-  const [cookies] = useCookies(["loginToken"]);
+  // Primeiramente, irá renderizar um componente de loading para o usuário
+  const [renderObject, setRenderObject] = useState(<Loading />);
+
+  const loginToken = useCookies(["loginToken"])[0].loginToken;
   const router = useRouter();
 
   useEffect(() => {
-    if (!cookies.loginToken) router.push("/login");
-  });
+    const user = token.decode(loginToken);
 
-  if (!cookies.loginToken) {
-    return (
-      <div className="h-screen flex flex-col items-center justify-center">
-        <Image width={48} src={load}></Image>
-        <h1 className="text-2xl font-semibold">Carregando...</h1>
-      </div>
-    );
-  } else {
-    return children;
-  }
+    if (!user) {
+      router.replace("/login");
+      return;
+    }
+
+    if (typeof children === "function") {
+      setRenderObject(children(user));
+    } else {
+      setRenderObject(children);
+    }
+  }, [loginToken, router, children]);
+
+  return renderObject;
 }
 
 export default ProtectedRout;
