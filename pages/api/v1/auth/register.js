@@ -1,5 +1,5 @@
 import userModel from "models/user";
-import bcrypt from "infra/encrypt";
+import bcrypt from "infra/encryption";
 
 async function register(req, res) {
   if (req.method != "POST")
@@ -21,7 +21,7 @@ async function register(req, res) {
     password: passwordHash,
   };
 
-  const toReturn = userModel.create(userToSave);
+  userModel.create(userToSave);
 
   return res.status(201).send();
 }
@@ -33,6 +33,7 @@ async function validateUser({ name, email, password, confirm_password }) {
     message: "",
   };
 
+  // eslint-disable-next-line no-useless-escape
   const emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
 
   if (!name || name.length < 3) {

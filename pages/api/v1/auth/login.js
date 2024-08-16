@@ -1,11 +1,11 @@
-import { serialize } from "cookie";
-import encrypt from "infra/encrypt";
+import encrypt from "infra/encryption";
 import token from "infra/token";
 import user from "models/user";
 
 async function login(req, res) {
   if (req.method != "POST")
     return res.status(405).json({ error: `Method ${req.method} not allowed.` });
+
   if (!req.body) return res.status(400).json({ error: "Invalid body" });
 
   const userLogin = JSON.parse(req.body);
@@ -27,14 +27,9 @@ async function login(req, res) {
     name: userFound.name,
   };
 
-  const tokenLogin = await token.encode(toSerialize);
+  const tokenLogin = token.encode(toSerialize);
 
-  const cookie = serialize("loginToken", tokenLogin, {
-    httpOnly: true,
-    maxAge: 604800000,
-  });
-
-  res.status(202).setHeader("Set-Cookie", cookie).end();
+  res.status(202).json({ token: tokenLogin });
 }
 
 export default login;
