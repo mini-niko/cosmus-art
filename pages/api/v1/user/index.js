@@ -1,33 +1,43 @@
 import user from "models/user";
 
-function index(req, res) {
+async function index(req, res) {
   const modelUser = req.body ? JSON.parse(req.body) : {};
 
   const methods = {
-    GET() {
-      user.getByName(req.query.name).then((userFound) => {
-        return res.status(200).json(userFound);
-      });
+    async GET() {
+      let userFound = await user.getByName(req.query.name);
+
+      if (userFound.length === 0)
+        return res.status(404).json({ error: "This user doesn't exists." });
+
+      return res.status(200).json(userFound);
     },
-    POST() {
-      user.create(modelUser).then((newUser) => {
-        return res.status(201).json(newUser);
-      });
+    async POST() {
+      if (await user.nameExists(modelUser.name))
+        return res
+          .status(409)
+          .json({ error: "Unable to create a user with an existing name." });
+
+      if (await user.emailExists(modelUser.email))
+        return res
+          .status(409)
+          .json({ error: "Unable to create a user with an existing email." });
+
+      let newUser = await user.create(modelUser);
+
+      return res.status(201).json(newUser);
     },
-    DELETE() {
-      user.drop(modelUser).then(() => {
-        return res.status(204).send()
-      });
+    async DELETE() {
+      await user.drop(modelUser);
+      return res.status(204).end();
     },
   };
 
   const execute = methods[req.method];
+
   return execute
-    ? execute()
-    : (res
-        .status(405)
-        .json({ error: `Method "${request.method}" not allowed` }),
-      );
+    ? await execute()
+    : res.status(405).json({ error: `Method "${req.method}" not allowed` });
 }
 
 export default index;

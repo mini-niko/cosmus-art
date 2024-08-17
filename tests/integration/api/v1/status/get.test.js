@@ -1,5 +1,5 @@
 test("GET to /api/v1/status should return 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/status");
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/status`);
   const body = await response.json();
 
   const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;

@@ -1,9 +1,7 @@
 import database from "infra/database.js";
 
 async function getAll() {
-  const responseQuery = await database.query(
-    "SELECT id, name, timestamp FROM account;",
-  );
+  const responseQuery = await database.query("SELECT * FROM account;");
 
   return responseQuery.rows;
 }
@@ -47,6 +45,15 @@ async function getByEmail(email) {
   return responseQuery.rows[0] || {};
 }
 
+async function getByLogin(login) {
+  const responseQuery = await database.query({
+    text: "SELECT * FROM account WHERE name = $1 OR email = $1;",
+    values: [login],
+  });
+
+  return responseQuery.rows[0] || {};
+}
+
 async function create(user) {
   const responseQuery = await database.query({
     text: "INSERT INTO account(name, email, password) VALUES($1, $2, $3) RETURNING *;",
@@ -57,18 +64,23 @@ async function create(user) {
 }
 
 async function drop(user) {
-  const result = await database.query({
-    text: "WITH deleted AS (DELETE FROM account RETURNING *) SELECT COUNT(*) FROM deleted;",
-    query: [user.name, user.email, user.password],
+  const responseQuery = await database.query({
+    text: "WITH deleted AS (DELETE FROM account WHERE name = $1 AND email = $2 AND password = $3 RETURNING *) SELECT COUNT(*) FROM deleted;",
+    values: [user.name, user.email, user.password],
   });
+
+  return responseQuery.rows;
 }
 
-export default {
+const userModel = {
   getAll,
   getByName,
   getByEmail,
+  getByLogin,
   nameExists,
   emailExists,
   create,
   drop,
 };
+
+export default userModel;

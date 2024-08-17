@@ -4,14 +4,42 @@ async function index(req, res) {
   const methods = {
     async GET() {
       const pendingMigrations = await migrations.getLast();
-      return res.status(200).json(pendingMigrations);
+
+      let jsonResponse = [];
+
+      pendingMigrations.forEach((pendingMigration) => {
+        const dateInISO = new Date(pendingMigration.timestamp).toISOString();
+
+        let jsonFormer = {
+          ...pendingMigration,
+          timestamp: dateInISO,
+        };
+
+        jsonResponse.push(jsonFormer);
+      });
+
+      res.status(200).json(jsonResponse);
     },
     async POST() {
       const pendingMigrations = await migrations.up();
 
-      return pendingMigrations.length > 0
-        ? res.status(201).json(pendingMigrations)
-        : res.status(200).json(pendingMigrations);
+      if (pendingMigrations.length === 0)
+        return res.status(200).json(pendingMigrations);
+
+      let jsonResponse = [];
+
+      pendingMigrations.forEach((pendingMigration) => {
+        const dateInISO = new Date(pendingMigration.timestamp).toISOString();
+
+        let jsonFormer = {
+          ...pendingMigration,
+          timestamp: dateInISO,
+        };
+
+        jsonResponse.push(jsonFormer);
+      });
+
+      res.status(201).json(jsonResponse);
     },
   };
 
@@ -20,7 +48,7 @@ async function index(req, res) {
   execute
     ? await execute()
     : res.status(405).json({
-        error: `Method "${request.method}" not allowed`,
+        error: `Method "${req.method}" not allowed`,
       });
 }
 

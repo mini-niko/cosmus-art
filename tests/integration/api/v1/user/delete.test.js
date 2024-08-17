@@ -1,8 +1,8 @@
 import user from "models/user";
 
 const modelUser = {
-  name: "test_cosmus",
-  email: "email@example.com",
+  name: "test_delete",
+  email: "delete@example.com",
   password: "@cosmusart",
 };
 
@@ -28,7 +28,7 @@ test("DELETE to /api/v1/user should return 204", async () => {
 
   const requestBody = JSON.stringify(requestUser);
 
-  const response = await fetch("http://localhost:3000/api/v1/user", {
+  const response = await fetch(`${process.env.COSMUS_URL}/api/v1/user`, {
     headers: requestHeaders,
     method: "DELETE",
     body: requestBody,
