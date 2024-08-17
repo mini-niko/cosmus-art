@@ -9,7 +9,7 @@ function index() {
           className="text-slate-800 hover:text-black text-xl font-semibold"
           href="/login"
         >
-          Cadastrar
+          Entrar
         </Link>
         <Link
           className="text-slate-800 hover:text-black text-xl font-semibold"
