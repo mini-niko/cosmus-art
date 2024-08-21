@@ -1,4 +1,5 @@
 import user from "models/user";
+import orchestrator from "tests/orchestrator";
 
 const userModel = {
   name: "test_login",
@@ -7,6 +8,8 @@ const userModel = {
 };
 
 beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+
   const passwordHash =
     "$2b$15$WLYGZN0tWhD6OgzKai65EO0ylijknz3hL80OjrthZtcxkX3RffCwi";
 

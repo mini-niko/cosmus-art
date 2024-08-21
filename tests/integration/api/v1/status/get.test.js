@@ -1,3 +1,9 @@
+const { default: orchestrator } = require("tests/orchestrator");
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+});
+
 test("GET to /api/v1/status should return 200", async () => {
   const response = await fetch(`${process.env.COSMUS_URL}/api/v1/status`);
   const body = await response.json();

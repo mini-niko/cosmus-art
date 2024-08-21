@@ -1,4 +1,5 @@
 import user from "models/user";
+import orchestrator from "tests/orchestrator";
 
 const userModel = {
   name: "test_register",
@@ -6,6 +7,10 @@ const userModel = {
   password: "cosmus@123",
   confirm_password: "cosmus@123",
 };
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+});
 
 afterAll(async () => {
   const newUser = await user.getByName(userModel.name);
