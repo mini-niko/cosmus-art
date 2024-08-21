@@ -1,4 +1,5 @@
 import user from "models/user";
+import orchestrator from "tests/orchestrator";
 
 const modelUser = {
   name: "test_get",
@@ -7,6 +8,7 @@ const modelUser = {
 };
 
 beforeAll(async () => {
+  await orchestrator.waitForAllServices();
   await user.create(modelUser);
 });
 
