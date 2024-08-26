@@ -12,7 +12,7 @@ function decode(token) {
       throw Error;
     }
 
-    const obj = jwt.decode(`${token}`);
+    const obj = jwt.decode(token);
 
     return obj;
   } catch (err) {
